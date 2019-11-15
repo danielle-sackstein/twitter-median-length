@@ -1,6 +1,4 @@
-plugins {
-    id 'java'
-}
+apply plugin: 'java'
 
 repositories {
     mavenCentral()
@@ -8,4 +6,5 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web:2.2.1.RELEASE'
+    implementation 'org.twitter4j:twitter4j-core:4.0.7'
 }
