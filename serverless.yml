@@ -1,4 +1,4 @@
-service: aws-java-simple-http-endpoint
+service: twitter-median-lengths
 
 frameworkVersion: ">=1.2.0 <2.0.0"
 
