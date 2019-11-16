@@ -33,7 +33,7 @@ public class Configuration {
 
     @Value("${maxTweetsCount}")
     private int maxTweetsCount;
-    public int getMaxTweetsCount() {
+    int getMaxTweetsCount() {
         return maxTweetsCount;
     }
 }

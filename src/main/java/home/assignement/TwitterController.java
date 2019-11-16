@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 import twitter4j.TwitterException;
 
 @RestController
-public class WebController {
+public class TwitterController {
 
     private final Configuration configuration;
     private final TwitterService twitterService;
 
     @Autowired
-    public WebController(Configuration configuration) {
+    public TwitterController(Configuration configuration) {
         this.configuration = configuration;
 
         this.twitterService = new TwitterService(
