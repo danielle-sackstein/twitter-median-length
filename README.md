@@ -36,7 +36,7 @@ The application works in the following way:
 At first a request from the client is fired, the rest controller then forwards the given query to the TwitterService, 
 which communicates with the Twitter API, and then calculates the median length of the last tweets received.
 
-
+#### Experience
 
 Gradle is used to manage all of the libraries used in the app.
 
@@ -47,3 +47,12 @@ After I managed to send a HTTP GET request to the application, I decided that th
 is using an existing Java wrapper - `Twitter4J`.
 
 This library allows us to communicate with Twitter search API without sending requests to it, and then parsing the JSON result which involves creating data classes, etc.
+
+## Running the application
+
+The JAR of the application and an `application.properties` configuration file is [uploaded in the releases tab of this repository](https://github.com/danielle-sackstein/twitter-median-length/releases/tag/v1.0).
+
+Running in the commandline (Windows / Linux) is as following:
+```
+java -jar twitter-median-length.jar --spring.config.location=path-to-properties/application.properties
+```
