@@ -7,11 +7,11 @@ provider:
   runtime: java12
 
 package:
-  artifact: build/distributions/aws-java-simple-http-endpoint.zip
+  artifact: build/distributions/home-assignement.zip
 
 functions:
   currentTime:
-    handler: com.serverless.Handler
+    handler: home.assignement.StreamLambdaHandler
     events:
       - http:
           path: ping

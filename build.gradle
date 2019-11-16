@@ -12,3 +12,13 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.1.6.RELEASE'
     testImplementation 'junit:junit:4.12'
 }
+
+task buildZip(type: Zip) {
+    from compileJava
+    from processResources
+    into('lib') {
+        from configurations.runtimeClasspath
+    }
+}
+
+build.dependsOn buildZip
