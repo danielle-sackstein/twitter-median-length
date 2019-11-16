@@ -5,32 +5,87 @@ import twitter4j.conf.ConfigurationBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TwitterService {
 
     private final Twitter twitter;
-    private final int maxCount = 1000;
 
-    public TwitterService() {
+    public TwitterService(
+        String consumerKey,
+        String consumerSecret,
+        String accessToken,
+        String accessTokenSecret
+    ) {
         var configuration = new ConfigurationBuilder()
-                .setOAuthConsumerKey("UblLQLjc3032cVDsHmWv8kJSX")
-                .setOAuthConsumerSecret("AVl3TauMVOvVbeOQzaHTJcFijIR0wCJE5i9VDU72o7yl0zI6wz")
-                .setOAuthAccessToken("1195009043254919173-lHEF1qfz3SxK588vlDENrqV3i5dFsY")
-                .setOAuthAccessTokenSecret("7ouIzhLPAbH1YDe5ooOlh21OaT2vN1U2wxKqbKkTbdSQQ")
+                .setOAuthConsumerKey(consumerKey)
+                .setOAuthConsumerSecret(consumerSecret)
+                .setOAuthAccessToken(accessToken)
+                .setOAuthAccessTokenSecret(accessTokenSecret)
                 .build();
         twitter = new TwitterFactory(configuration).getInstance();
     }
 
-    public void searchTweets(String query) throws TwitterException {
+    public int getMedian(String query, int maxTweetCount) throws TwitterException {
+        return
+            getMedianValue(
+                getSortedTweetsLengths(
+                    getTweets(query, maxTweetCount)
+            ));
+    }
+
+    public List<Status> getTweets(String query, int maxTweetCount) throws TwitterException {
+        return getTweets(query, maxTweetCount, 100);
+    }
+
+    public List<Status> getTweets(String query, int maxTweetCount, int maxRequestCount) throws TwitterException {
+        Query requestQuery = new Query(query).count(maxRequestCount);
+
         List<Status> tweets = new ArrayList<>();
 
-        Query requestQuery = new Query(query);
-        while (tweets.size() < maxCount) {
-            QueryResult queryResult = twitter.search(requestQuery);
-            tweets.addAll(queryResult.getTweets()); // Not ordered
+        while (tweets.size() < maxTweetCount) {
+            QueryResult queryResult = searchTweets(requestQuery);
+            tweets.addAll(queryResult.getTweets());
 
+            if (!queryResult.hasNext()) {
+                return tweets;
+            }
             requestQuery = queryResult.nextQuery();
         }
-        tweets = tweets.subList(0, maxCount);
+        if (tweets.size() > maxTweetCount) {
+            return tweets.subList(0, maxTweetCount);
+        }
+
+        return tweets;
+    }
+
+    private QueryResult searchTweets(Query requestQuery) throws TwitterException {
+        return twitter.search(requestQuery);
+    }
+
+    public List<Integer> getSortedTweetsLengths(List<Status> tweets) {
+        return tweets.stream()
+            .map(tweet -> tweet.getText().length())
+            .sorted()
+            .collect(Collectors.toList());
+    }
+
+    public int getMedianValue(List<Integer> values) {
+        int size = values.size();
+        if (size == 0) {
+            return 0;
+        }
+        int middle = size / 2;
+
+        int hi = values.get(middle);
+        if (size % 2 == 0) {
+            int lo = values.get(middle - 1);
+            return average(lo, hi);
+        }
+        return hi;
+    }
+
+    private int average(int lhs, int rhs) {
+        return (lhs + rhs) / 2;
     }
 }
