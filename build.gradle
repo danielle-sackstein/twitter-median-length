@@ -1,13 +1,17 @@
-apply plugin: 'java'
+plugins {
+    id 'org.springframework.boot' version '2.2.1.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id 'java'
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.2.1.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.twitter4j:twitter4j-core:4.0.7'
-    implementation 'com.amazonaws.serverless:aws-serverless-java-container-spring:[1.0,)'
+    //implementation 'com.amazonaws.serverless:aws-serverless-java-container-spring:[1.0,)'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.1.6.RELEASE'
     testImplementation 'junit:junit:4.12'

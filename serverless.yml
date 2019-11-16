@@ -7,11 +7,11 @@ provider:
   runtime: java12
 
 package:
-  artifact: build/distributions/home-assignement.zip
+  artifact: build/distributions/twitter-median-length.zip
 
 functions:
   currentTime:
-    handler: home.assignement.StreamLambdaHandler
+    handler: twitter.median.length.StreamLambdaHandler
     events:
       - http:
           path: ping
