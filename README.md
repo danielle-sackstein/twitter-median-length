@@ -4,7 +4,8 @@
 This project is a Java REST API which connects to the [Twitter Standard search API](https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets).
 
 The project contains a `GET` endpoint:
- - `GET /median?q=<term>` - Searches for given amount of last published tweets which contain the query provided, returns the median length of these tweets.
+ - `GET /median?q=<term>` - Searches for given amount of last published tweets which contain the query provided, returns 
+ the median length of these tweets.
  
 ## Overview
 
@@ -34,7 +35,8 @@ This project uses
 The application works in the following way:
 
 At first a request from the client is fired, the rest controller then forwards the given query to the TwitterService, 
-which communicates with the Twitter API, and then calculates the median length of the last tweets received.
+which communicates with the Twitter API, and then calculates the median length of the last tweets received with the
+term provided.
 
 #### Experience
 
@@ -43,10 +45,9 @@ Gradle is used to manage all of the libraries used in the app.
 I decided to use Spring Framework, because it provides an easy to-use system for building REST APIs 
 using simple annotations (such as `GetMapping`, `PostMapping`) to listen to specific REST endpoints.
 
-After I managed to send a HTTP GET request to the application, I decided that the best way to interact with the Twitter search API,
-is using an existing Java wrapper - `Twitter4J`.
-
-This library allows us to communicate with Twitter search API without sending requests to it, and then parsing the JSON result which involves creating data classes, etc.
+After I managed to send a HTTP GET request to the application, I to usr an existing Java wrapper - `Twitter4J`
+to interact with the Twitter search API. This library allows us to communicate with Twitter search API without sending
+requests to it, and then parsing the JSON result which involves creating data classes, etc.
 
 ## Running the application
 
