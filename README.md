@@ -45,7 +45,7 @@ Gradle is used to manage all of the libraries used in the app.
 I decided to use Spring Framework, because it provides an easy to-use system for building REST APIs 
 using simple annotations (such as `GetMapping`, `PostMapping`) to listen to specific REST endpoints.
 
-After I managed to send a HTTP GET request to the application, I to usr an existing Java wrapper - `Twitter4J`
+After I managed to send a HTTP GET request to the application, I decided to use an existing Java wrapper - `Twitter4J`
 to interact with the Twitter search API. This library allows us to communicate with Twitter search API without sending
 requests to it, and then parsing the JSON result which involves creating data classes, etc.
 
